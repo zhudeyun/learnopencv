@@ -4,11 +4,11 @@
 
 using namespace std;
 using namespace cv;
-
+//threshold2/threshold1 -> 推荐比例为3：1 或 2：1
 int g_nThreshold1 = 100;
 int g_nThreshold2 = 100;
 
-static void on_Track();
+static void On_Canny(int, void*);
 void FindEdge();
 
 void main()
@@ -19,7 +19,7 @@ void main()
 
 static void On_Canny(int, void*)
 {
-	Mat gray;
+	Mat gray,edge,blurimg,dst;
 	//载入原始图  
 	Mat src = imread("../cat.jpg");  //工程目录下应该有一张名为1.jpg的素材图
 	Mat src1=src.clone();
@@ -30,9 +30,20 @@ static void On_Canny(int, void*)
 	//----------------------------------------------------------------------------------
 	//	一、最简单的canny用法，拿到原图后直接用。
 	//----------------------------------------------------------------------------------
+	/*
 	cvtColor(src,gray,CV_BGR2GRAY);
 	Canny(gray,gray,g_nThreshold1,g_nThreshold2);
 	imshow("Canny窗口",gray);
+	*/
+	//----------------------------------------------------------------------------------
+	// 二、先降噪，再用Canny
+	//----------------------------------------------------------------------------------
+	cvtColor(src,gray,CV_BGR2GRAY);
+	imshow("gray image",gray);
+	blur(gray,blurimg,Size(3,3));
+	imshow("blue image",blurimg);
+	Canny(blurimg,edge,g_nThreshold1,g_nThreshold1*3,3);
+	imshow("Canny窗口",edge);
 }
 void FindEdge()
 {

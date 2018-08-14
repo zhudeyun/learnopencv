@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindAreaDemo", "FindAreaDemo\FindAreaDemo.vcproj", "{B9F5EA16-21FB-4710-8292-FB22CDCFFDC5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindEdge", "FindAreaDemo\FindAreaDemo.vcproj", "{B9F5EA16-21FB-4710-8292-FB22CDCFFDC5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindContours", "FindContours\FindContours.vcproj", "{238A4AB7-0F7A-4093-A23A-A092DF2E9F0D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindColor", "FindColor\FindColor.vcproj", "{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,14 @@ Global
 		{B9F5EA16-21FB-4710-8292-FB22CDCFFDC5}.Debug|Win32.Build.0 = Debug|Win32
 		{B9F5EA16-21FB-4710-8292-FB22CDCFFDC5}.Release|Win32.ActiveCfg = Release|Win32
 		{B9F5EA16-21FB-4710-8292-FB22CDCFFDC5}.Release|Win32.Build.0 = Release|Win32
+		{238A4AB7-0F7A-4093-A23A-A092DF2E9F0D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{238A4AB7-0F7A-4093-A23A-A092DF2E9F0D}.Debug|Win32.Build.0 = Debug|Win32
+		{238A4AB7-0F7A-4093-A23A-A092DF2E9F0D}.Release|Win32.ActiveCfg = Release|Win32
+		{238A4AB7-0F7A-4093-A23A-A092DF2E9F0D}.Release|Win32.Build.0 = Release|Win32
+		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Debug|Win32.Build.0 = Debug|Win32
+		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Release|Win32.ActiveCfg = Release|Win32
+		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
