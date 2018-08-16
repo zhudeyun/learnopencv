@@ -46,22 +46,37 @@ Mat srcGreen,hsvImgGreen;
 Mat srcYellow,hsvImgYellow;
 Mat srcWhite,hsvImgWhite;
 
+enum COLOR_TYPE
+{
+	RED,
+	GREEN,
+	YELLOW,
+	WHITE
+};
+COLOR_TYPE ct;
 static void thresh_callback_red(int, void*);
 static void thresh_callback_green(int, void*);
 static void thresh_callback_yellow(int, void*);
 static void thresh_callback_white(int, void*);
 vector<MatND> getHSVHist(Mat &src);
 void filteredRed(const Mat &inputImage, Mat &resultGray, Mat &resultColor);
+void filteredColor(int colorType,const Mat &inputImage, Mat &resultGray, Mat &resultColor);
 void TestRed();
-void TestRed2();
 void TestGreen();
 void TestYellow();
 void TestWhite();
 void TestCalibration();
+void TestColor(COLOR_TYPE color, char* filename);
 void main()
 {
-	TestCalibration();
-	TestRed2();	
+	//TestCalibration();
+	TestColor(RED,"red.bmp");
+	waitKey(0);
+	TestColor(GREEN,"green.bmp");
+	waitKey(0);
+	TestColor(YELLOW,"yellow.bmp");
+	waitKey(0);
+	TestColor(WHITE,"white.bmp");
 	waitKey(0);
 	
 	return;
@@ -400,7 +415,8 @@ vector<MatND> getHSVHist(Mat &src){
 	return hist;
 }
 
-void filteredRed(const Mat &inputImage, Mat &resultGray, Mat &resultColor){
+void filteredRed(const Mat &inputImage, Mat &resultGray, Mat &resultColor)
+{
 	Mat hsvImage;
 	cvtColor(inputImage, hsvImage, CV_BGR2HSV);
 	resultGray = Mat(hsvImage.rows, hsvImage.cols,CV_8U,cv::Scalar(0));  
@@ -430,29 +446,85 @@ void filteredRed(const Mat &inputImage, Mat &resultGray, Mat &resultColor){
 		}
 	}
 }
-void TestRed2()
+void filteredColor(int colorType,const Mat &inputImage, Mat &resultGray, Mat &resultColor)
 {
-	Mat inputImage, resultGray,resultColor;
-	inputImage = imread("red.bmp",CV_LOAD_IMAGE_COLOR);
-	imshow("red source",inputImage);
-	waitKey(0);
-	filteredRed(inputImage,resultGray,resultColor);
-	imshow("result gray",resultGray);
-	imshow("result color",resultColor);
-	
-	/*Mat elementErode = getStructuringElement(MORPH_RECT, Size(7, 7));
-	Mat elementDilate = getStructuringElement(MORPH_RECT, Size(15, 15));
-	erode(resultGray,resultGray,elementErode);
-	imshow("erode",resultGray);
-	waitKey(0);
-	dilate(resultGray,resultGray,elementDilate);
-	imshow("dilate",resultGray);
-	waitKey(0);*/
+	int Hmin,Hmax,Hmin2,Hmax2,Smin,Smax,Vmin,Vmax;
+	switch(colorType)
+	{
+	case RED:
+		Hmin=0;Hmax=10;Hmin2=125;Hmax2=180;Smin=43;Smax=255;Vmin=46;Vmax=255;
+		break;
+	case GREEN:
+		Hmin=35;Hmax=77;Smin=43;Smax=255;Vmin=46;Vmax=255;
+		break;
+	case YELLOW:
+		Hmin=11;Hmax=25;Smin=43;Smax=255;Vmin=46;Vmax=255;
+		break;
+	case WHITE:
+		Hmin=0;Hmax=180;Smin=0;Smax=30;Vmin=221;Vmax=255;
+		break;
+	default:
+		break;
+	}
+	Mat hsvImage;
+	cvtColor(inputImage, hsvImage, CV_BGR2HSV);
+	resultGray = Mat(hsvImage.rows, hsvImage.cols,CV_8U,cv::Scalar(0));  
+	resultColor = Mat(hsvImage.rows, hsvImage.cols,CV_8UC3,cv::Scalar(0, 0, 0));
+	double H=0.0,S=0.0,V=0.0;   
+	for(int i=0;i<hsvImage.rows;i++)
+	{
+		for(int j=0;j<hsvImage.cols;j++)
+		{
+			H=hsvImage.at<Vec3b>(i,j)[0];
+			S=hsvImage.at<Vec3b>(i,j)[1];
+			V=hsvImage.at<Vec3b>(i,j)[2];
 
+			if(S>=Smin && S<=Smax)
+			{
+				if(V>=Vmin && V<=Vmax)
+				{
+					if (colorType== RED)
+					{
+						if((H >= Hmin && H<Hmax) || (H>=Hmin2&&H<=Hmax2))
+						{
+							resultGray.at<uchar>(i,j)=255;
+							resultColor.at<Vec3b>(i, j)[0] = inputImage.at<Vec3b>(i, j)[0];
+							resultColor.at<Vec3b>(i, j)[1] = inputImage.at<Vec3b>(i, j)[1];
+							resultColor.at<Vec3b>(i, j)[2] = inputImage.at<Vec3b>(i, j)[2];
+						}
+					}
+					else
+					{
+						if(H >= Hmin && H<Hmax)
+						{
+							resultGray.at<uchar>(i,j)=255;
+							resultColor.at<Vec3b>(i, j)[0] = inputImage.at<Vec3b>(i, j)[0];
+							resultColor.at<Vec3b>(i, j)[1] = inputImage.at<Vec3b>(i, j)[1];
+							resultColor.at<Vec3b>(i, j)[2] = inputImage.at<Vec3b>(i, j)[2];
+						}
+					}					
+				}					
+			}
+		}
+	}
+}
+void TestColor(COLOR_TYPE color, char* filename)
+{
+	char* window_name_source = "source";
+	char* window_name_result_gray = "result gray";
+	char* window_name_result_gray_after_open = "result";
+	Mat inputImage, resultGray,resultColor;
+	inputImage = imread(filename,CV_LOAD_IMAGE_COLOR);
+	namedWindow(window_name_source,CV_WINDOW_NORMAL);
+	imshow(window_name_source,inputImage);
+	filteredColor(color,inputImage,resultGray,resultColor);
+	namedWindow(window_name_result_gray,CV_WINDOW_NORMAL);
+	imshow(window_name_result_gray,resultGray);
 	//开操作 (去除一些噪点)
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(resultGray, resultGray, MORPH_OPEN, element);
 	//闭操作 (连接一些连通域)
 	morphologyEx(resultGray, resultGray, MORPH_CLOSE, element);
-	imshow("result gray open and close",resultGray);	
+	namedWindow(window_name_result_gray_after_open,CV_WINDOW_NORMAL);
+	imshow(window_name_result_gray_after_open,resultGray);
 }
