@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindContours", "FindContour
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindColor", "FindColor\FindColor.vcproj", "{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "findContours_Demo", "findContours_Demo\findContours_Demo.vcproj", "{0E0855EC-A1E9-4B09-9AD8-E6D6268017A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Debug|Win32.Build.0 = Debug|Win32
 		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Release|Win32.ActiveCfg = Release|Win32
 		{2DF4AE7D-ABFF-4AF8-B500-1EEA1A888CA5}.Release|Win32.Build.0 = Release|Win32
+		{0E0855EC-A1E9-4B09-9AD8-E6D6268017A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E0855EC-A1E9-4B09-9AD8-E6D6268017A4}.Debug|Win32.Build.0 = Debug|Win32
+		{0E0855EC-A1E9-4B09-9AD8-E6D6268017A4}.Release|Win32.ActiveCfg = Release|Win32
+		{0E0855EC-A1E9-4B09-9AD8-E6D6268017A4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

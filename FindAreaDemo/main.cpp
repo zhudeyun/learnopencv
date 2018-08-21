@@ -42,7 +42,7 @@ static void On_Canny(int, void*)
 	imshow("gray image",gray);
 	blur(gray,blurimg,Size(3,3));
 	imshow("blue image",blurimg);
-	Canny(blurimg,edge,g_nThreshold1,g_nThreshold1*3,3);
+	Canny(blurimg,edge,g_nThreshold1,g_nThreshold2,3);
 	imshow("Canny´°¿Ú",edge);
 }
 void FindEdge()

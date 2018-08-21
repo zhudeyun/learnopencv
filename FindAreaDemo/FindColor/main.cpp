@@ -458,7 +458,8 @@ void filteredColor(int colorType,const Mat &inputImage, Mat &resultGray, Mat &re
 		Hmin=35;Hmax=77;Smin=43;Smax=255;Vmin=46;Vmax=255;
 		break;
 	case YELLOW:
-		Hmin=11;Hmax=25;Smin=43;Smax=255;Vmin=46;Vmax=255;
+		//Hmin=11;Hmax=25;Smin=43;Smax=255;Vmin=46;Vmax=255;	->  µº  «Orange
+		Hmin=26;Hmax=34;Smin=43;Smax=255;Vmin=46;Vmax=255;
 		break;
 	case WHITE:
 		Hmin=0;Hmax=180;Smin=0;Smax=30;Vmin=221;Vmax=255;

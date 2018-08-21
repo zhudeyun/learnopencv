@@ -15,7 +15,7 @@ char* source_window = "Demo´°¿Ú";
 void main()
 {
 	
-	src=imread("3.jpg");
+	src=imread("2.jpg");
 	//imshow("src",src);
 	cvtColor(src,src_gray,CV_BGR2GRAY);
 	//imshow("gray",src_gray);
